@@ -1,0 +1,22 @@
+,0
+0,INSERT INTO movies.Genres (Name) VALUES ('Drama');
+1,INSERT INTO movies.Genres (Name) VALUES ('Crime');
+2,INSERT INTO movies.Genres (Name) VALUES ('Action');
+3,INSERT INTO movies.Genres (Name) VALUES ('Adventure');
+4,INSERT INTO movies.Genres (Name) VALUES ('Biography');
+5,INSERT INTO movies.Genres (Name) VALUES ('History');
+6,INSERT INTO movies.Genres (Name) VALUES ('Sci-Fi');
+7,INSERT INTO movies.Genres (Name) VALUES ('Romance');
+8,INSERT INTO movies.Genres (Name) VALUES ('Western');
+9,INSERT INTO movies.Genres (Name) VALUES ('Fantasy');
+10,INSERT INTO movies.Genres (Name) VALUES ('Comedy');
+11,INSERT INTO movies.Genres (Name) VALUES ('Thriller');
+12,INSERT INTO movies.Genres (Name) VALUES ('Animation');
+13,INSERT INTO movies.Genres (Name) VALUES ('Family');
+14,INSERT INTO movies.Genres (Name) VALUES ('War');
+15,INSERT INTO movies.Genres (Name) VALUES ('Mystery');
+16,INSERT INTO movies.Genres (Name) VALUES ('Music');
+17,INSERT INTO movies.Genres (Name) VALUES ('Horror');
+18,INSERT INTO movies.Genres (Name) VALUES ('Musical');
+19,INSERT INTO movies.Genres (Name) VALUES ('Film-Noir');
+20,INSERT INTO movies.Genres (Name) VALUES ('Sport');

@@ -15,7 +15,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var connection = builder.Configuration.GetConnectionString("DefaultConnection"); 
+
 builder.Services.AddDbContext<MoviesContext>(options => options.UseSqlServer(connection));
+
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(

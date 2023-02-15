@@ -17,7 +17,7 @@ namespace Movies.Business.Mappers
         /// <returns>
         ///     If <paramref name="movie"/> is not null an instance of <see cref="MovieDto"/>, otherwise null
         /// </returns>
-        public MovieDto Get(Movie movie)
+        public MovieDto? Get(Movie movie)
         {
             if(movie is null)
             {
@@ -28,18 +28,15 @@ namespace Movies.Business.Mappers
             {
                 Id = movie.Id,
                 Name = movie.Name,
-                ReleaseDate = movie.ReleaseDate
+                ReleaseYear = movie.ReleaseYear
             };
 
-            foreach (var movieGenre in movie.MovieGenres)
+            dto.Genres = movie.MovieGenres.Select(mg => new GenreDto
             {
-                dto.Genres.Add(new GenreDto
-                {
-                    Id = movieGenre.Genre.Id,
-                    Name = movieGenre.Genre.Name
-                });
-            }
-
+                Id = mg.Genre?.Id ?? 0,
+                Name = mg.Genre?.Name ?? string.Empty
+            }).ToList();
+            
             return dto;
         }
     }

@@ -39,7 +39,12 @@ namespace Movies.Api.Controllers
         [HttpGet("{id}", Name = "GetMovieById")]
         public async Task<ActionResult<MovieDto>> GetAsync(string id, CancellationToken cancellationToken)
         {
-            var movie = await _moviesDomainService.GetByIdAsync(id, cancellationToken);
+            if (!Guid.TryParse(id, out var guid))
+            {
+                return new BadRequestObjectResult($"The {id} is invalid");
+            }
+
+            var movie = await _moviesDomainService.GetByIdAsync(guid, cancellationToken);
 
             if(movie is null)
             {
@@ -92,18 +97,23 @@ namespace Movies.Api.Controllers
         [HttpPut("{id}", Name = "UpdateMovie")]
         public async Task<ActionResult<MovieDto>> PutAsync(string id, [FromBody] UpdateMovieCriteriaDto criteria, CancellationToken cancellationToken)
         {
+            if (!Guid.TryParse(id, out var guid))
+            {
+                return new BadRequestObjectResult($"The {id} is invalid");
+            }
+            
             if(criteria is null)
             {
                 return new BadRequestObjectResult("The movie update criteria is required.");
             }
 
-            var existsMovie = await _moviesDomainService.ExistsAsync(id, cancellationToken);
+            var existsMovie = await _moviesDomainService.ExistsAsync(guid, cancellationToken);
             if (!existsMovie)
             {
                 return new NotFoundResult();
             }
 
-            var movie = await _moviesDomainService.UpdateAsync(id, criteria, cancellationToken);
+            var movie = await _moviesDomainService.UpdateAsync(guid, criteria, cancellationToken);
 
             return new OkObjectResult(movie);
         }
@@ -119,8 +129,13 @@ namespace Movies.Api.Controllers
         /// </param>
         [HttpDelete("{id}", Name = "DeleteMovie")]
         public async Task<ActionResult> DeleteAsync(string id, CancellationToken cancellationToken)
-        {            
-            await _moviesDomainService.DeleteAsync(id, cancellationToken);
+        {
+            if (!Guid.TryParse(id, out var guid))
+            {
+                return new BadRequestObjectResult($"The {id} is invalid");
+            }
+
+            await _moviesDomainService.DeleteAsync(guid, cancellationToken);
 
             return new OkResult();
         }

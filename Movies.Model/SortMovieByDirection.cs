@@ -8,11 +8,11 @@
         /// <summary>
         ///     Ascending (1)
         /// </summary>
-        public static short Ascending = 1;
+        public const short Ascending = 1;
         
         /// <summary>
         ///     Descending (2)
         /// </summary>
-        public static short Descending = 2;
+        public const short Descending = 2;
     }
 }

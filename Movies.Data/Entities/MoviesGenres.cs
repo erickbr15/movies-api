@@ -3,26 +3,26 @@
     /// <summary>
     ///     The movies genres entity
     /// </summary>
-    public class MovieGenre
+    public class MoviesGenres
     {
         /// <summary>
         ///     The unique movie identifier
         /// </summary>
-        public string MovieId { get; set; }
+        public Guid MovieId { get; set; }
         
         /// <summary>
         ///     The unique genre identifier
         /// </summary>
-        public short GenreId { get; set; }
-        
+        public int GenreId { get; set; }
+
         /// <summary>
         ///     The movie
         /// </summary>
-        public Movie Movie { get; set; }
-        
+        public Movie Movie { get; set; } = default!;
+
         /// <summary>
         ///     The Genre
         /// </summary>
-        public Genre Genre { get; set; }
+        public Genre Genre { get; set; } = default!;
     }
 }

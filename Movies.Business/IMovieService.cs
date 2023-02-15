@@ -19,7 +19,7 @@ namespace Movies.Business
         /// <returns>
         ///     true if the movie id exists, otherwise false
         /// </returns>
-        Task<bool> ExistsAsync(string id, CancellationToken cancellationToken);
+        Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken);
 
         /// <summary>
         ///     Get a movie given the identifier
@@ -33,7 +33,7 @@ namespace Movies.Business
         /// <returns>
         ///     An instance of <see cref="Movie"/>
         /// </returns>
-        Task<MovieDto> GetByIdAsync(string id, CancellationToken cancellationToken);
+        Task<MovieDto> GetByIdAsync(Guid id, CancellationToken cancellationToken);
 
         /// <summary>
         ///     Creates a new movie
@@ -61,7 +61,7 @@ namespace Movies.Business
         /// <returns>
         ///     An instance of <see cref="MovieDto"/> which represents the edited movie.
         /// </returns>
-        Task<MovieDto> UpdateAsync(string id, UpdateMovieCriteriaDto criteria, CancellationToken cancellationToken);
+        Task<MovieDto> UpdateAsync(Guid id, UpdateMovieCriteriaDto criteria, CancellationToken cancellationToken);
 
         /// <summary>
         ///     Search, sort and page the movies based on the given criteria
@@ -86,6 +86,6 @@ namespace Movies.Business
         /// <param name="cancellationToken">
         ///     The operation cancellation token. An instance of <see cref="CancellationToken"/>
         /// </param>
-        Task DeleteAsync(string id, CancellationToken cancellationToken);
+        Task DeleteAsync(Guid id, CancellationToken cancellationToken);
     }
 }

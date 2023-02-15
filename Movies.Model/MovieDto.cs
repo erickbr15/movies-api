@@ -12,19 +12,19 @@ namespace Movies.Model
         ///     The movie id
         /// </summary>
         [DataMember]
-        public string Id { get; set; }
+        public Guid Id { get; set; }
 
         /// <summary>
         ///     The movie name
         /// </summary>
         [DataMember]
-        public string Name { get; set; }
+        public string Name { get; set; } = default!;
 
         /// <summary>
         ///     The movie release date
         /// </summary>
         [DataMember]
-        public DateTime ReleaseDate { get; set; }
+        public short? ReleaseYear { get; set; }
 
         /// <summary>
         ///     The movie genres

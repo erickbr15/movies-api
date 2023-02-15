@@ -7,7 +7,7 @@
             var validSortByProperties = new int[] { 
                 SortMovieByProperties.Id, 
                 SortMovieByProperties.Name, 
-                SortMovieByProperties.ReleaseDate };
+                SortMovieByProperties.ReleaseYear };
 
             if(!validSortByProperties.Contains(criteria.SortBy ?? -1))
             {

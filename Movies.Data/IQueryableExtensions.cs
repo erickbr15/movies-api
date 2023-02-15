@@ -33,13 +33,13 @@ namespace Movies.Data
             {
                 movies = movies.OrderByDescending(m => m.Id);
             }
-            else if (sortBy == SortMovieByProperties.ReleaseDate && sortDirection == SortMovieByDirection.Ascending)
+            else if (sortBy == SortMovieByProperties.ReleaseYear && sortDirection == SortMovieByDirection.Ascending)
             {
-                movies = movies.OrderBy(m => m.ReleaseDate);
+                movies = movies.OrderBy(m => m.ReleaseYear);
             }
-            else if (sortBy == SortMovieByProperties.ReleaseDate && sortDirection == SortMovieByDirection.Descending)
+            else if (sortBy == SortMovieByProperties.ReleaseYear && sortDirection == SortMovieByDirection.Descending)
             {
-                movies = movies.OrderByDescending(m => m.ReleaseDate);
+                movies = movies.OrderByDescending(m => m.ReleaseYear);
             }
 
             return movies;

@@ -17,7 +17,7 @@ namespace Movies.Data.Mappers
         /// <returns>
         ///     An instance of <see cref="Movie"/>
         /// </returns>
-        public Movie Get(CreateMovieCriteriaDto createMovieCriteria)
+        public Movie? Get(CreateMovieCriteriaDto createMovieCriteria)
         {
             if(createMovieCriteria is null)
             {
@@ -26,15 +26,13 @@ namespace Movies.Data.Mappers
 
             var movie = new Movie
             {
-                Id = createMovieCriteria.Id,
-                Name = createMovieCriteria.Name,
-                ReleaseDate = createMovieCriteria.ReleaseDate
+                Name = createMovieCriteria.Name ?? string.Empty,
+                ReleaseYear = createMovieCriteria.ReleaseYear
             };
 
             foreach (var genreId in createMovieCriteria.Genres)
             {
-                movie.MovieGenres.Add(new MovieGenre { 
-                    MovieId = createMovieCriteria.Id,
+                movie.MovieGenres.Add(new MoviesGenres {
                     GenreId = genreId
                 });
             }

@@ -8,16 +8,16 @@
         /// <summary>
         ///     The unique genre identifier
         /// </summary>
-        public short Id { get; set; }
+        public int Id { get; set; }
         
         /// <summary>
         ///     The genre name
         /// </summary>
-        public string Name { get; set; }
+        public string Name { get; set; } = default!;
         
         /// <summary>
         ///     The movies associated to the genre
         /// </summary>
-        public ICollection<MovieGenre> MovieGenres { get; set; } = new List<MovieGenre>();
+        public ICollection<MoviesGenres> MovieGenres { get; set; } = new List<MoviesGenres>();
     }
 }

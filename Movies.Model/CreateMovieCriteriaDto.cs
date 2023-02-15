@@ -7,13 +7,7 @@ namespace Movies.Model
     /// </summary>
     [DataContract]
     public class CreateMovieCriteriaDto
-    {
-        /// <summary>
-        ///     The movie unique identifier
-        /// </summary>
-        [DataMember]
-        public string? Id { get; set; }
-
+    {        
         /// <summary>
         ///     The movie name
         /// </summary>
@@ -24,7 +18,7 @@ namespace Movies.Model
         ///     The movie release date
         /// </summary>
         [DataMember]
-        public DateTime ReleaseDate { get; set; }
+        public short ReleaseYear { get; set; }
 
         /// <summary>
         ///     The movie genres

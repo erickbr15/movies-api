@@ -44,13 +44,13 @@ namespace Movies.Business
 
             await _context.SaveChangesAsync(cancellationToken);
 
-            var dto = await this.GetByIdAsync(criteria.Id, cancellationToken);
+            var dto = await this.GetByIdAsync(movie.Id, cancellationToken);
 
             return dto;
         }
 
         /// <inheritdoc />
-        public async Task DeleteAsync(string id, CancellationToken cancellationToken)
+        public async Task DeleteAsync(Guid id, CancellationToken cancellationToken)
         {
             var movieEntity = await _context.Movies.FindAsync(new object[] { id }, cancellationToken);
             if(movieEntity is null)
@@ -58,18 +58,10 @@ namespace Movies.Business
                 return;
             }
 
-            var movieGenres = await _context.MovieGenres.Where(mg => string.Equals(mg.MovieId, id))
-                .ToListAsync(cancellationToken);
-
-            foreach (var movieGenre in movieGenres)
+            var movieGenresQuery = _context.MovieGenres.Where(mg => mg.MovieId == id);
+            foreach (var movieGenre in movieGenresQuery)
             {
-                var movieGenreEntity = await _context.MovieGenres.FindAsync(new object[] { movieGenre.MovieId, movieGenre.GenreId }, cancellationToken);
-                if( movieGenreEntity is null)
-                {
-                    continue;
-                }
-
-                _context.MovieGenres.Remove(movieGenreEntity);
+                _context.MovieGenres.Remove(movieGenre);
             }
 
             _context.Movies.Remove(movieEntity);
@@ -78,20 +70,20 @@ namespace Movies.Business
         }
 
         /// <inheritdoc />
-        public async Task<bool> ExistsAsync(string id, CancellationToken cancellationToken)
+        public async Task<bool> ExistsAsync(Guid id, CancellationToken cancellationToken)
         {
-            var exists = await _context.Movies.AnyAsync(movie => string.Equals(movie.Id, id), cancellationToken);
+            var exists = await _context.Movies.AnyAsync(movie => movie.Id == id, cancellationToken);
             return exists;
         }
 
         /// <inheritdoc />
-        public async Task<MovieDto> GetByIdAsync(string id, CancellationToken cancellationToken)
+        public async Task<MovieDto> GetByIdAsync(Guid id, CancellationToken cancellationToken)
         {            
             var entity = await _context.Movies
                 .Include(m=> m.MovieGenres)
                 .ThenInclude(mg=>mg.Genre)
                 .AsNoTracking()
-                .SingleOrDefaultAsync(movie => string.Equals(movie.Id, id), cancellationToken);
+                .SingleOrDefaultAsync(movie => movie.Id == id, cancellationToken);
 
             if(entity is null)
             {
@@ -99,7 +91,6 @@ namespace Movies.Business
             }
 
             var mapper = new MovieDtoMapper();
-
             return mapper.Get(entity);
         }
 
@@ -133,7 +124,7 @@ namespace Movies.Business
         }
 
         /// <inheritdoc />
-        public async Task<MovieDto> UpdateAsync(string id, UpdateMovieCriteriaDto criteria, CancellationToken cancellationToken)
+        public async Task<MovieDto> UpdateAsync(Guid id, UpdateMovieCriteriaDto criteria, CancellationToken cancellationToken)
         {
             if (criteria is null)
             {
@@ -147,13 +138,13 @@ namespace Movies.Business
             }
 
             movieEntity.Name = criteria.Name;
-            movieEntity.ReleaseDate = criteria.ReleaseDate;
+            movieEntity.ReleaseYear = criteria.ReleaseYear;
             
-            var currentMovieGenres = await _context.MovieGenres.Where(mg=> string.Equals(mg.MovieId, id))
+            var currentMovieGenres = await _context.MovieGenres.Where(mg=> mg.MovieId == id)
                 .ToListAsync(cancellationToken);
 
-            var movieGenresToRemove = currentMovieGenres.ExceptBy(criteria.Genres, g => g.GenreId);
-            var movieGenresToAdd = criteria.Genres.Except(currentMovieGenres.Select(g => g.GenreId));
+            var movieGenresToRemove = currentMovieGenres.ExceptBy(criteria.GenreIds, g => g.GenreId);
+            var movieGenresToAdd = criteria.GenreIds.Except(currentMovieGenres.Select(g => g.GenreId));
 
             foreach (var movieGenre in movieGenresToRemove)
             {
@@ -167,7 +158,7 @@ namespace Movies.Business
 
             foreach (var genreId in movieGenresToAdd)
             {
-                var newMovieGenre = new MovieGenre
+                var newMovieGenre = new MoviesGenres
                 {
                     GenreId = genreId,
                     MovieId = id

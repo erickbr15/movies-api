@@ -12,12 +12,12 @@ namespace Movies.Model
         ///     The genre id
         /// </summary>
         [DataMember]
-        public short Id { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         ///     The genre name
         /// </summary>
         [DataMember]
-        public string Name { get; set; }
+        public string Name { get; set; } = default!;
     }
 }

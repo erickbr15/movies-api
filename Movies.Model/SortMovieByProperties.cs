@@ -18,6 +18,6 @@
         /// <summary>
         ///     Release date (3)
         /// </summary>
-        public static short ReleaseDate = 3;
+        public static short ReleaseYear = 3;
     }
 }
